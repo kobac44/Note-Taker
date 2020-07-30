@@ -3,34 +3,34 @@
 //CRUD
 //Need a Router defined
 //Need to store information
-
+const express = require("express");
 const router = require("express").Router();
 // const store = require("./../db/store");
 
-// const
+module.exports = (app) => {
+  // const index = require("./public/assets/js/index");
 
-// module.exports = function(app) {
+  //API Routes
+  app.get("/api/notes", function (req, res) {
+    res.status(200).json({
+      storeMessage: "",
+    });
 
-// //API Routes
+    app.post("/api/notes", function (req, res) {
+      res.status(200).json({
+        message: "Handling POST request to product",
+      });
+    });
 
-// // View the Route
+    app.get("/api/notes/:id", function (req, res) {
+      res.json(notes[req.parms.id]);
+    });
 
-// //read the route
-//   app.get() {
-
-//   }
-// //create the route
-//   app.post {
-
-//   }
-
-// //read the route with an {id}
-//   app.get() {
-
-//   }
-
-//   app.delete() {
-
-//   }
-
-// }
+    app.delete("/api/note/delete", function (req, res) {
+      index.length = 0;
+      res.json({ ok: Cool });
+      updateDb();
+    });
+  });
+};
+module.exports = router;
