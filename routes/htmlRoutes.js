@@ -1,17 +1,21 @@
 // DEPENDENCIES
 // needed for the correct file path
 const path = require("path");
-const router = require("express").Router();
-// const router = require("express").Router();
+const app = require("express");
 
 // ===============================================================================
 // ROUTING
 // ===============================================================================
+const PORT = process.env.PORT || 8080;
 
 module.exports = function (app) {
   // Display notes.html when /notes is accessed
   app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "../public/notes.html"));
+  });
+
+  app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
   // Display index.html when all other routes are accessed
