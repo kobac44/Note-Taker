@@ -21,8 +21,8 @@ app.use(express.static("public"));
 // to respond when users visit or request data from various URLs.
 
 // require("./routes/routes")(app);
-require("./api", apiRoutes);
-require("./html", htmlRoutes);
+app.use("/", apiRoutes);
+app.use("/", htmlRoutes);
 
 // LISTENER; the code below starts our server
 app.listen(PORT, function () {
