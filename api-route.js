@@ -10,6 +10,7 @@ const router = require("express").Router();
 module.exports = (app) => {
   // const index = require("./public/assets/js/index");
 
+  // getNotes * saveNotes * deleteNotes
   //API Routes
   app.get("/api/notes", function (req, res) {
     res.status(200).json({
@@ -26,7 +27,7 @@ module.exports = (app) => {
       res.json(notes[req.parms.id]);
     });
 
-    app.delete("/api/note/delete", function (req, res) {
+    app.delete("/api/notes/delete", function (req, res) {
       index.length = 0;
       res.json({ ok: Cool });
       updateDb();
