@@ -12,26 +12,25 @@ module.exports = (app) => {
 
   // getNotes * saveNotes * deleteNotes
   //API Routes
-  app.get("/api/notes", function (req, res) {
+  router.get("/api/notes", (req, res) => {
     res.status(200).json({
       storeMessage: "",
     });
 
-    app.post("/api/notes", function (req, res) {
+    router.post("/api/notes", (req, res) => {
       res.status(200).json({
         message: "Handling POST request to product",
       });
     });
 
-    app.get("/api/notes/:id", function (req, res) {
+    router.get("/api/notes/:id", (req, res) => {
       res.json(notes[req.parms.id]);
     });
 
-    app.delete("/api/notes/delete", function (req, res) {
+    router.delete("/api/notes/delete", (req, res) => {
       index.length = 0;
       res.json({ ok: Cool });
       updateDb();
     });
   });
 };
-module.exports = router;
