@@ -3,37 +3,82 @@
 //CRUD
 //Need a Router defined
 //Need to store information
-const express = require("express");
-
-// const store = require("./../db/store");
-const app = express();
-
-const PORT = process.env.PORT || 8080;
+// const express = require("express");
+// const { Router } = require("express");
+const router = require("express").Router();
+const fs = require("fs");
+const path = require("path");
+const { v4: uuid } = require("uuid");
+// const Notes = require("../db/Notes");
 
 module.exports = (app) => {
-  // const index = require("./public/assets/js/index");
+  fs.readFile("db/db.json", "utf8", (err, data) => {
+    if (err) throw err;
 
-  // getNotes * saveNotes * deleteNotes
-  //API Routes
-  app.get("/api/notes", (req, res) => {
-    res.status(200).json({
-      storeMessage: "",
-    });
+    const notes = JSON.parse(data);
+    // // ===============================================================================
+    // // ROUTES
+    // // ===============================================================================
+  });
 
-    app.post("/api/notes", (req, res) => {
-      res.status(200).json({
-        message: "Handling POST request to product",
+  // Display notes.html when /notes is accessed
+  app.get("/notes", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/notes.html"));
+  });
+
+  app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+
+  // Display index.html when all other routes are accessed
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+
+  // VIEW ROUTES
+  // ========================================================
+
+  //API Routes - get
+  router.get("/api/notes", function (req, res) {
+    res.json(notes);
+  });
+
+  //post
+  router.post("/notes", function (req, res) {
+    // read the db.json file
+    fs.readFile("./db/db.json", "utf8", function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      // parse the data and store to variable
+      let noteData = JSON.parse(data);
+      // give random id to note when it's saved
+      req.body.id = uuidv4();
+      // store the newNote from the POST request to a new variable
+      let newNote = req.body;
+      console.log(newNote);
+      // push the newNote into noteData (it's an array)
+      noteData.push(newNote);
+      // write file
+      fs.writeFile("./db/db.json", JSON.stringify(noteData), function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("success!");
       });
+      // respond to the user with the new note
+      res.json(noteData);
     });
+  });
+  // retrieve note using a id
+  router.get("/api/notes/:id", function (req, res) {
+    res.json(notes[req.parms.id]);
+  });
 
-    app.get("/api/notes/:id", (req, res) => {
-      res.json(notes[req.parms.id]);
-    });
-
-    app.delete("/api/notes/delete", (req, res) => {
-      index.length = 0;
-      res.json({ ok: Cool });
-      updateDb();
-    });
+  // delete note
+  router.delete("/api/notes/:id", function (req, res) {
+    notes.splice(req.parms.id, 1);
+    updateDb();
+    console.log("Notes deleted " + req.parms.id);
   });
 };
