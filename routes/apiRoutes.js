@@ -23,7 +23,8 @@ module.exports = (app) => {
 
   // Display notes.html when /notes is accessed
   app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/notes.html"));
+    res.sendFile(path.join(__dirname, "../public", "index1.html"));
+    // res.sendFile(path.join(__dirname, +"/index.html"));
   });
 
   app.get("/", function (req, res) {
