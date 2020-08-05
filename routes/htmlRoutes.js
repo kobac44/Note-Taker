@@ -1,0 +1,18 @@
+const router = require("express").Router();
+const path = require("path");
+
+// Display notes.html when /notes is accessed
+router.get("/notes", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
+  // res.sendFile(path.join(__dirname, +"/index.html"));
+});
+
+router.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+// Display index.html when all other routes are accessed
+router.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+module.exports = router;

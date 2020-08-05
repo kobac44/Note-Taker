@@ -2,6 +2,7 @@
 // =============================================================
 const express = require("express");
 const apiRoutes = require("./routes/apiRoutes.js");
+const htmlRoutes = require("./routes/htmlRoutes.js");
 const path = require("path");
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static("public"));
 
 // require("./routes/routes")(app);
 app.use("/", apiRoutes);
+app.use("/", htmlRoutes);
 
 // LISTENER; the code below starts our server
 app.listen(PORT, function () {
